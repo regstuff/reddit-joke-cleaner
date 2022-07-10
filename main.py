@@ -2,6 +2,8 @@ import feedparser, re, os, sys, json, requests, urllib.parse
 from requests.structures import CaseInsensitiveDict
 from datetime import datetime
 from profanity_check import predict, predict_prob # https://github.com/dimitrismistriotis/alt-profanity-check
+import smtplib, ssl # For emailer
+from email.message import EmailMessage
 
 rjokes = 'https://www.reddit.com/r/jokes/.rss'
 finalmsg = ''
@@ -15,6 +17,10 @@ blacklist = ['viagra', 'sex', 'squirt']
 headers = CaseInsensitiveDict()
 headers["Accept"] = "application/vnd.github+json"
 headers["Authorization"] = "token " + token
+
+receiverid = os.environ['receiverid']
+senderid = os.environ['senderid']
+mailpassword = os.environ['mailpass']
 
 for entry in feedparser.parse(rjokes)['entries']:
   count += 1
@@ -60,9 +66,26 @@ if resp.status_code == 201:
   print(f'Issue {issue_number} was opened.')
 
   close_api_url = f"https://api.github.com/repos/{owner}/reddit-joke-cleaner/issues/{issue_number}" # Close the issue
-  data = '{"state":"closed","labels":["archived"]}'
+  data = '{"state":"closed"}'
   resp = requests.patch(close_api_url, headers=headers, data=data)
   if resp.status_code == 200: print(f'Issue {resp.json()["number"]} was closed.')
   else: print(f'Issue {resp.json()["number"]} closing failed with status {resp.status_code}, and reason {resp.reason}')
 
 else: print(resp.status_code, resp.text)
+
+def sendmail(mailmessage):
+  if mailmessage != '':
+    context = ssl.create_default_context()
+    msg = EmailMessage()
+    msg['Subject'] = 'Reddit Jokes Update'
+    msg['To'] = receiverid 
+    msg['From'] = senderid
+    msg.set_content(mailmessage)
+    print(mailmessage)
+    #for receiverid in receiverids: # Send mail to all receiver ids
+    print('Sending email')
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        server.login(senderid, mailpassword)
+        server.send_message(msg)
+        
+    print('Email sent')
