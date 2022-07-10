@@ -9,7 +9,7 @@ rjokes = 'https://www.reddit.com/r/jokes/.rss'
 finalmsg = ''
 threshold = 0.6
 token = os.environ['TOKEN']
-owner = 'regstuff'
+owner = os.environ['OWNER']
 count = 0
 accepted = 0
 blacklist = ['viagra', 'sex', 'squirt']
@@ -36,7 +36,7 @@ for entry in feedparser.parse(rjokes)['entries']:
     content = content.replace('...', '.').replace('"', '\'').split('&#32;')[0].strip() # Split on open quote. After that is all metadata
     content = re.sub(r'<.*?>','',content)
     content = re.sub('&[a-z]*;','',content)
-    content = re.sub(r'[^\w -.?,\'\"!;:&\(\)]','',title)
+    content = re.sub(r'[^\w -.?,\'\"!;:&\(\)]','',content)
     #content = bytes(content,'utf-8').decode('utf-8', 'ignore')
     #link = entry.links[0].href
     titlelist = re.split(r'[.?!; \'\"]', title)
