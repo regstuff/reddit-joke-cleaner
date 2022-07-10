@@ -31,3 +31,7 @@ jobs:
         run: python main.py
         env: 
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          senderid: ${{ secrets.senderid }}
+          receiverid: ${{ secrets.receiverid }}
+          mailpass: ${{ secrets.mailpass }}
+          OWNER: ${{ github.repository_owner }}
