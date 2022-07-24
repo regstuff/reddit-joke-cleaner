@@ -12,7 +12,7 @@ token = os.environ['TOKEN']
 owner = os.environ['OWNER']
 count = 0
 accepted = 0
-blacklist = ['viagra', 'sex', 'squirt', 'porn', 'sperm', 'nipple', 'condom']
+blacklist = ['viagra', 'sex', 'squirt', 'porn', 'sperm', 'nipple', 'condom', 'masturbat']
 
 headers = CaseInsensitiveDict()
 headers["Accept"] = "application/vnd.github+json"
