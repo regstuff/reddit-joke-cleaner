@@ -27,7 +27,7 @@ for entry in feedparser.parse(rjokes)['entries']:
   title = entry.title.strip()
   content = entry.content[0].value.strip()
 
-  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1500: pass
+  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1500 or content.count(' ') < 20: pass
 
   else:
     title = title.replace('...', '.').replace('"', '\'').replace('\n', ' ').strip() # Replace ellipsis to create easy sentence breaks, and " so JSON doesn't fail.
