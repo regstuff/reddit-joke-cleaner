@@ -28,7 +28,7 @@ for entry in feedparser.parse(rjokes)['entries']:
   content = entry.content[0].value.strip()
   print(content)
 
-  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1500 or content.count(' ') < 20: pass
+  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1500: pass
 
   else:
     title = title.replace('...', '.').replace('"', '\'').replace('\n', ' ').strip() # Replace ellipsis to create easy sentence breaks, and " so JSON doesn't fail.
@@ -43,7 +43,7 @@ for entry in feedparser.parse(rjokes)['entries']:
     titlelist = re.split(r'[.?!; \'\"]', title)
     contentlist = re.split(r'[.?!; \'\"]', content)
     
-    if any(x == y[:len(x)].lower() for y in titlelist for x in blacklist) or any(x == y[:len(x)] for y in contentlist for x in blacklist) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', content))]) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', title))]): pass
+    if any(x == y[:len(x)].lower() for y in titlelist for x in blacklist) or any(x == y[:len(x)] for y in contentlist for x in blacklist) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', content))]) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', title))]) or  content.count(' ') < 20: pass
     else: 
       print(title)
       print(predict_prob(re.split(r'[.?!;]', content)), predict_prob(re.split(r'[.?!;]', title)))
