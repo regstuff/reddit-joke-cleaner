@@ -26,6 +26,7 @@ for entry in feedparser.parse(rjokes)['entries']:
   count += 1
   title = entry.title.strip()
   content = entry.content[0].value.strip()
+  print(content)
 
   if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1500 or content.count(' ') < 20: pass
 
