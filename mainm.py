@@ -14,7 +14,8 @@ gjlist = list(reader)
 print(len(gjlist))
 
 
-for entry in gjlist:
+for i, entry in enumerate(gjlist):
+  if i%100 ==0 : print(i, ' jokes done')
   title = entry['title'].strip()
   content = entry['selftext'].strip()
 
@@ -38,15 +39,15 @@ for entry in gjlist:
       cleaned_jokes.append(title + '\n' + content)
       print(len(cleaned_jokes))
       
-    file = open('cl.csv', 'w')
- 
-    with file:
-        # identifying header 
-        header = ['text']
-        writer = csv.DictWriter(file, fieldnames = header)
+file = open('cl.csv', 'w')
 
-        # writing data row-wise into the csv file
-        writer.writeheader()
-        for j in cleaned_jokes: 
-          dj = {'text':j}
-          writer.writerow(dj)
+with file:
+    # identifying header 
+    header = ['text']
+    writer = csv.DictWriter(file, fieldnames = header)
+
+    # writing data row-wise into the csv file
+    writer.writeheader()
+    for j in cleaned_jokes: 
+      dj = {'text':j}
+      writer.writerow(dj)
