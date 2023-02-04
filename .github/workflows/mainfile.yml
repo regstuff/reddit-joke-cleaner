@@ -1,0 +1,37 @@
+# This is a basic workflow to help you get started with Actions
+# Ref: https://stackoverflow.com/a/69465861/3016570
+
+name: Get Clean Reddit Jokes
+
+# Controls when the workflow will run
+on:
+  schedule:
+  - cron: "0 0 * * *"
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Use hashes for extra security - https://stackoverflow.com/a/70196496/3016570
+      - name: Checkout Repository
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      
+      - name: Install dependencies
+        run: |
+          pip install feedparser alt-profanity-check requests
+          
+      - name: Execute Python script # Run the app.py
+        run: python mainm.py
+        env: 
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          senderid: ${{ secrets.senderid }}
+          receiverid: ${{ secrets.receiverid }}
+          mailpass: ${{ secrets.mailpass }}
+          OWNER: ${{ github.repository_owner }}
