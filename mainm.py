@@ -47,4 +47,6 @@ for entry in gjlist:
 
         # writing data row-wise into the csv file
         writer.writeheader()
-        for j in cleaned_jokes: writer.writerow(j)
+        for j in cleaned_jokes: 
+          dj = {'text':j}
+          writer.writerow(dj)
