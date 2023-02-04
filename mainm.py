@@ -42,7 +42,7 @@ for entry in gjlist:
  
     with file:
         # identifying header 
-        header = 'text'
+        header = ['text']
         writer = csv.DictWriter(file, fieldnames = header)
 
         # writing data row-wise into the csv file
