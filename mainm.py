@@ -18,7 +18,7 @@ for entry in gjlist:
   title = entry['title'].strip()
   content = entry['selftext'].strip()
 
-  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1600: pass
+  if 'Reposts' in title or 'school shooting jokes' in title or len(title) == 0 or title[-1] == '?' or len(content) == 0 or content[-1] == '?' or len(content) > 1600: pass
 
   else:
     title = title.replace('...', '.').replace('"', '\'').replace('\n', ' ').strip() # Replace ellipsis to create easy sentence breaks, and " so JSON doesn't fail.
@@ -37,3 +37,14 @@ for entry in gjlist:
     else: 
       cleaned_jokes.append(title + '\n' + content)
       print(len(cleaned_jokes))
+      
+    file = open('cl.csv', 'w')
+ 
+    with file:
+        # identifying header 
+        header = 'text'
+        writer = csv.DictWriter(file, fieldnames = header)
+
+        # writing data row-wise into the csv file
+        writer.writeheader()
+        for j in cleaned_jokes: writer.writerow(j)
