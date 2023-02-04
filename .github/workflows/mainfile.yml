@@ -35,3 +35,6 @@ jobs:
           receiverid: ${{ secrets.receiverid }}
           mailpass: ${{ secrets.mailpass }}
           OWNER: ${{ github.repository_owner }}
+          
+      - name: Push Changes Back To Repo
+        uses: GuillaumeFalourd/git-commit-push@0363e474c79afd69c7e295d331183c0c1d824619
