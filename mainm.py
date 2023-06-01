@@ -6,7 +6,7 @@ from profanity_check import predict, predict_prob # https://github.com/dimitrism
 
 
 threshold = 0.6
-blacklist = ['naan', 'bukkake', 'tampon', 'cock', 'penis', 'lesbian', 'rectum', 'viagra', 'pleasuring', 'sex', 'squirt', 'porn', 'sperm', 'breast', 'anal', 'nipple', 'condom', 'masturbat', 'horny', 'virgin', 'ejaculat', 'tits', 'prostitut', 'blowjob', 'blow job']
+blacklist = ['naan', 'bukkake', 'tampon', 'cock', 'dildo', 'penis', 'lesbian', 'rectum', 'viagra', 'pleasuring', 'sex', 'squirt', 'porn', 'sperm', 'breast', 'anal', 'nipple', 'condom', 'masturbat', 'horny', 'virgin', 'ejaculat', 'tits', 'prostitut', 'blowjob', 'blow job']
 
 myFile = open('g4g.csv', 'r')
 reader = csv.DictReader(myFile)
