@@ -59,7 +59,7 @@ print(accepted, 'jokes sent of', count, 'total jokes.')
 open_api_url = f"https://api.github.com/repos/{owner}/reddit-joke-cleaner/issues" # Close the issue
 #data = '{"title":"today","body":'+'finalmsg'+'}'
 data = '{"title":"' + datetime.today().strftime("%Y%m%d") + '","body":"' + finalmsg + '"}'
-#print(data)
+print(data)
 resp = requests.post(open_api_url, headers=headers, data=data)
 if resp.status_code == 201: 
   #print(issue_number)
