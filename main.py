@@ -12,7 +12,7 @@ token = os.environ['TOKEN']
 owner = os.environ['OWNER']
 count = 0
 accepted = 0
-blacklist = ['Plethora', 'plethora', 'seal', 'erotic', 'chunks', 'I can get a haircut?', 'punchline', 'testicles', 'panties', 'naan', 'bukkake', 'tampon', 'cock', 'orgasm', 'dildo', 'whore', 'made love', 'make love', 'making love',  'penis', 'lesbian', 'rectum', 'viagra', 'pleasuring', 'sex', 'squirt', 'porn', 'sperm', 'breast', 'anal', 'nipple', 'condom', 'masturbat', 'horny', 'virgin', 'ejaculat', 'tits', 'prostitut', 'blowjob', 'blow job', 'jerking']
+blacklist = ['plethora', 'blew a seal', 'erotic', 'blew chunks', 'I can get a haircut?', 'punchline', 'testicles', 'panties', 'naan', 'bukkake', 'tampon', 'cock', 'orgasm', 'dildo', 'whore', 'made love', 'make love', 'making love',  'penis', 'lesbian', 'rectum', 'viagra', 'pleasuring', 'sex', 'squirt', 'porn', 'sperm', 'breast', 'anal', 'nipple', 'condom', 'masturbat', 'horny', 'virgin', 'ejaculat', 'tits', 'prostitut', 'blowjob', 'blow job', 'jerking']
 
 headers = CaseInsensitiveDict()
 headers["Accept"] = "application/vnd.github+json"
@@ -43,7 +43,7 @@ for entry in feedparser.parse(rjokes)['entries']:
     titlelist = re.split(r'[.?!; \'\"]', title)
     contentlist = re.split(r'[.?!; \'\"]', content)
     
-    if any(x == y[:len(x)].lower() for y in titlelist for x in blacklist) or any(x == y[:len(x)] for y in contentlist for x in blacklist) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', content))]) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', title))]) or  content.count(' ') < 20: pass
+    if any(x.lower() in content.lower() for x in blacklist) or any(x.lower() in title.lower() for x in blacklist) or any(x == y[:len(x)].lower() for y in titlelist for x in blacklist) or any(x == y[:len(x)] for y in contentlist for x in blacklist) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', content))]) or any([x > threshold for x in predict_prob(re.split(r'[.?!;]', title))]) or  content.count(' ') < 20: pass
     else: 
       print(title)
       print(predict_prob(re.split(r'[.?!;]', content)), predict_prob(re.split(r'[.?!;]', title)))
