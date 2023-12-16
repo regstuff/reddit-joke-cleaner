@@ -1,4 +1,4 @@
-import feedparser, re, os, sys, json, requests, urllib.parse
+import re, os, sys, json, requests, urllib.parse
 from requests.structures import CaseInsensitiveDict
 from datetime import datetime
 import time
