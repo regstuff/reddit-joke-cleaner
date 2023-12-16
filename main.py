@@ -1,6 +1,7 @@
 import feedparser, re, os, sys, json, requests, urllib.parse
 from requests.structures import CaseInsensitiveDict
 from datetime import datetime
+import time
 from profanity_check import predict, predict_prob # https://github.com/dimitrismistriotis/alt-profanity-check
 import smtplib, ssl # For emailer
 from email.message import EmailMessage
@@ -22,13 +23,28 @@ receiverid = os.environ['receiverid']
 senderid = os.environ['senderid']
 mailpassword = os.environ['mailpass']
 
-for entry in feedparser.parse(rjokes)['entries']:
+clientid = os.environ['clientid']
+clientpass = os.environ['clientpass']
+rusername = os.environ['rusername']
+ruserpass = os.environ['ruserpass']
+
+client_auth = requests.auth.HTTPBasicAuth('uiaVPKjbu323MZ67PwhtpA', 'qaGLOnuade98OrjQaYK-q2sYnQbn2g')
+post_data = {"grant_type": "password", "username": "regstuff", "password": "Optical123!"}
+headers = {"User-Agent": "personalscript/0.1 by regstuff"}
+response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=headers)
+toke = response.json()
+headers = {"Authorization": f"bearer {toke['access_token']}", "User-Agent": "personalscript/0.1 by regstuff"}
+response = requests.get("https://oauth.reddit.com/r/jokes/top&t=day", headers=headers)
+entries = response.json()
+
+for entry in entries:
   count += 1
-  title = entry.title.strip()
-  content = entry.content[0].value.strip()
+  title = entry['data']['title'].strip()
+  content = entry['data']['selftext'].strip()
+  created = entry['data']['created']
   print(content)
 
-  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1600: pass
+  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1600 or time.time()-created>86400: pass
 
   else:
     title = title.replace('...', '.').replace('"', '\'').replace('\n', ' ').strip() # Replace ellipsis to create easy sentence breaks, and " so JSON doesn't fail.
