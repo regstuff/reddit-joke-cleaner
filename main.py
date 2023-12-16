@@ -28,14 +28,14 @@ clientpass = os.environ['clientpass']
 rusername = os.environ['rusername']
 ruserpass = os.environ['ruserpass']
 
-client_auth = requests.auth.HTTPBasicAuth('uiaVPKjbu323MZ67PwhtpA', 'qaGLOnuade98OrjQaYK-q2sYnQbn2g')
-post_data = {"grant_type": "password", "username": "regstuff", "password": "Optical123!"}
+client_auth = requests.auth.HTTPBasicAuth(clientid, clientpass)
+post_data = {"grant_type": "password", "username": rusername, "password": ruserpass}
 headers = {"User-Agent": "personalscript/0.1 by regstuff"}
 response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=headers)
 toke = response.json()
 headers = {"Authorization": f"bearer {toke['access_token']}", "User-Agent": "personalscript/0.1 by regstuff"}
 response = requests.get("https://oauth.reddit.com/r/jokes/top", headers=headers)
-entries = response.json()
+entries = response.json()['data']['children']
 
 for entry in entries:
   count += 1
