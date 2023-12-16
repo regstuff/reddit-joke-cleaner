@@ -25,7 +25,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install feedparser alt-profanity-check requests
+          pip install alt-profanity-check requests
           
       - name: Execute Python script # Run the app.py
         run: python main.py
