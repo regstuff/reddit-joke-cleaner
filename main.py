@@ -23,12 +23,12 @@ receiverid = os.environ['receiverid']
 senderid = os.environ['senderid']
 mailpassword = os.environ['mailpass']
 
-clientid = os.environ['clientid']
+clientid = os.environ['clientid'] # Details here https://www.reddit.com/prefs/apps
 clientpass = os.environ['clientpass']
 rusername = os.environ['rusername']
 ruserpass = os.environ['ruserpass']
 
-client_auth = requests.auth.HTTPBasicAuth(clientid, clientpass)
+client_auth = requests.auth.HTTPBasicAuth(clientid, clientpass) # HowTo - https://www.reddit.com/dev/api/#GET_top
 post_data = {"grant_type": "password", "username": rusername, "password": ruserpass}
 rheaders = {"User-Agent": "personalscript/0.1 by regstuff"}
 response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=rheaders)
