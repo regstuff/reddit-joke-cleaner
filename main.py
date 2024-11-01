@@ -44,7 +44,7 @@ for entry in entries:
   created = entry['data']['created']
   print(content)
 
-  if 'Reposts' in title or 'school shooting jokes' in title or title[-1] == '?' or content[-1] == '?' or len(content) > 1600 or time.time()-created>86400: pass
+  if 'Reposts' in title or 'school shooting jokes' in title or len(title) < 1 or title[-1] == '?' or len(content) < 1 or content[-1] == '?' or len(content) > 1600 or time.time()-created>86400: pass
 
   else:
     title = title.replace('...', '.').replace('"', '\'').replace('\n', ' ').strip() # Replace ellipsis to create easy sentence breaks, and " so JSON doesn't fail.
